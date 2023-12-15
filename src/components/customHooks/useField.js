@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
 import { height, width } from '../constrains/fieldSize'
-import { getInitialPosition } from '../constrains/getInitialPosition'
 
-export function useField() {
+export function useField({ snake }) {
   const [field, setField] = useState([])
   const currentField = []
-  const { initialPosition } = getInitialPosition()
+
   for (let i = 0; i < height; i += 1) {
     currentField[i] = []
     for (let j = 0; j < width; j += 1) {
@@ -16,40 +15,21 @@ export function useField() {
     }
   }
 
-  const makeSnake = () => {
-    if (initialPosition.vertical) {
-      currentField[initialPosition.initialGridY][initialPosition.initialGridX] = {
-        apple: false,
-        snake: true,
-      }
-      currentField[initialPosition.initialGridY - 1][initialPosition.initialGridX] = {
-        apple: false,
-        snake: true,
-      }
-      currentField[initialPosition.initialGridY - 2][initialPosition.initialGridX] = {
-        apple: false,
-        snake: true,
-      }
-    } else {
-      currentField[initialPosition.initialGridY][initialPosition.initialGridX] = {
-        apple: false,
-        snake: true,
-      }
-      currentField[initialPosition.initialGridY][initialPosition.initialGridX - 1] = {
-        apple: false,
-        snake: true,
-      }
-      currentField[initialPosition.initialGridY][initialPosition.initialGridX - 2] = {
-        apple: false,
-        snake: true,
+  const addSnakeToField = () => {
+    for (let i = 0; i < snake.length; i += 1) {
+      const { X } = snake[i]
+      const { Y } = snake[i]
+      currentField[Y][X] = {
+        apple: snake[i].apple,
+        snake: snake[i].snake,
       }
     }
-    setField(currentField)
   }
 
   useEffect(() => {
-    makeSnake()
-  }, [])
+    addSnakeToField()
+    setField(currentField)
+  }, [snake])
 
   return {
     field,
