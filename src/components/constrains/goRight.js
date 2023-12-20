@@ -1,17 +1,14 @@
-export function goRight({ snake, setSnake }) {
+import { width } from './fieldSize'
+
+export function goRight({ snake, setSnake, setColapse }) {
   const currentSnake = [snake.length]
 
-  let theRightestElement = 0
   if (snake[0].X < snake[snake.length - 1].X) {
-    theRightestElement = snake.length - 1
-  }
-
-  if (theRightestElement) {
     currentSnake[0] = {
-      X: snake[theRightestElement].X + 1,
-      Y: snake[theRightestElement].Y,
-      apple: snake[theRightestElement].apple,
-      snake: snake[theRightestElement].snake,
+      X: snake[snake.length - 1].X + 1,
+      Y: snake[snake.length - 1].Y,
+      apple: snake[snake.length - 1].apple,
+      snake: snake[snake.length - 1].snake,
     }
     for (let i = 1; i < snake.length; i += 1) {
       currentSnake[i] = snake[snake.length - i]
@@ -28,5 +25,9 @@ export function goRight({ snake, setSnake }) {
     }
   }
 
-  setSnake(currentSnake)
+  if (currentSnake[0].X > (width - 1)) {
+    setColapse(true)
+  } else {
+    setSnake(currentSnake)
+  }
 }

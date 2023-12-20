@@ -1,17 +1,12 @@
-export function goUp({ snake, setSnake }) {
+export function goUp({ snake, setSnake, setColapse }) {
   const currentSnake = [snake.length]
 
-  let theHighestElement = 0
   if (snake[0].Y > snake[snake.length - 1].Y) {
-    theHighestElement = snake.length - 1
-  }
-
-  if (theHighestElement) {
     currentSnake[0] = {
-      X: snake[theHighestElement].X,
-      Y: snake[theHighestElement].Y - 1,
-      apple: snake[theHighestElement].apple,
-      snake: snake[theHighestElement].snake,
+      X: snake[snake.length - 1].X,
+      Y: snake[snake.length - 1].Y - 1,
+      apple: snake[snake.length - 1].apple,
+      snake: snake[snake.length - 1].snake,
     }
     for (let i = 1; i < snake.length; i += 1) {
       currentSnake[i] = snake[snake.length - i]
@@ -27,5 +22,10 @@ export function goUp({ snake, setSnake }) {
       currentSnake[i] = snake[i - 1]
     }
   }
-  setSnake(currentSnake)
+
+  if (currentSnake[0].Y < 0) {
+    setColapse(true)
+  } else {
+    setSnake(currentSnake)
+  }
 }
