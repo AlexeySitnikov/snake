@@ -6,26 +6,26 @@ export function useSnake() {
 
   useEffect(() => {
     const { initialPosition } = getInitialPosition()
-    const currentSnake = []
     const initialLength = 5
+    const currentSnake = [initialLength]
 
     if (initialPosition.vertical) {
       for (let i = 0; i < initialLength; i += 1) {
-        currentSnake.push({
+        currentSnake[i] = {
           X: initialPosition.initialGridX,
-          Y: initialPosition.initialGridY - i,
+          Y: initialPosition.initialGridY - initialLength + i,
           apple: false,
           snake: true,
-        })
+        }
       }
     } else {
       for (let i = 0; i < initialLength; i += 1) {
-        currentSnake.push({
-          X: initialPosition.initialGridX - i,
+        currentSnake[i] = {
+          X: initialPosition.initialGridX - Math.floor(initialLength / 2) + i,
           Y: initialPosition.initialGridY,
           apple: false,
           snake: true,
-        })
+        }
       }
     }
     setSnake(currentSnake)
