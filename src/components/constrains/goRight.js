@@ -22,7 +22,7 @@ export function goRight({ snake, setSnake }) {
         head: false,
       }
     }
-    console.log(currentSnake)
+    // console.log(currentSnake)
   }
 
   // currentSnake[0] = {
