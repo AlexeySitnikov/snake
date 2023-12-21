@@ -16,6 +16,7 @@ export function useSnake() {
           Y: initialPosition.initialGridY - initialLength + i,
           apple: false,
           snake: true,
+          head: !i,
         }
       }
     } else {
@@ -25,6 +26,7 @@ export function useSnake() {
           Y: initialPosition.initialGridY,
           apple: false,
           snake: true,
+          head: !i,
         }
       }
     }

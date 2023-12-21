@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { height, width } from '../constrains/fieldSize'
 
-export function useField({ snake, colapse, apple }) {
+export function useField({ snake, colapse }) {
   const [field, setField] = useState([])
   const currentField = []
 
@@ -28,23 +28,23 @@ export function useField({ snake, colapse, apple }) {
     }
   }
 
-  const addAppleToField = () => {
-    const { X, Y } = apple
-    currentField[Y][X] = {
-      apple: apple.apple,
-      snake: apple.snake,
-    }
-  }
+  // const addAppleToField = () => {
+  //   const { X, Y } = apple
+  //   currentField[Y][X] = {
+  //     apple: apple.apple,
+  //     snake: apple.snake,
+  //   }
+  // }
 
   useEffect(() => {
     addSnakeToField()
     setField(currentField)
   }, [snake])
 
-  useEffect(() => {
-    addAppleToField()
-    setField(currentField)
-  }, [apple])
+  // useEffect(() => {
+  //   addAppleToField()
+  //   setField(currentField)
+  // }, [apple])
 
   return {
     field,

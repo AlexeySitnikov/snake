@@ -9,14 +9,14 @@ import {
 } from '../constrains/keyCodes'
 import { useField } from '../customHooks/useField'
 import { useSnake } from '../customHooks/useSnake'
-import { getApple } from '../constrains/getApple'
+// import { getApple } from '../constrains/getApple'
 
 export function Field() {
   const { snake, setSnake } = useSnake()
   const [colapse, setColapse] = useState(false)
-  const [apple, setApple] = useState({})
+  // const [apple, setApple] = useState({})
   const { field } = useField({
-    snake, colapse, setColapse, apple,
+    snake, colapse, setColapse,
   })
 
   const keyPress = (e) => {
@@ -26,7 +26,7 @@ export function Field() {
       }
       if (e.keyCode === arrowLeft) {
         goLeft({ snake, setSnake, setColapse })
-        getApple({ snake, setApple })
+        // getApple({ snake })
       }
       if (e.keyCode === arrowRight) {
         goRight({ snake, setSnake, setColapse })

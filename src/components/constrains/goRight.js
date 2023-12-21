@@ -9,9 +9,16 @@ export function goRight({ snake, setSnake, setColapse }) {
       Y: snake[snake.length - 1].Y,
       apple: snake[snake.length - 1].apple,
       snake: snake[snake.length - 1].snake,
+      head: true,
     }
     for (let i = 1; i < snake.length; i += 1) {
-      currentSnake[i] = snake[snake.length - i]
+      currentSnake[i] = {
+        X: snake[snake.length - i].X,
+        Y: snake[snake.length - i].Y,
+        apple: snake[snake.length - i].apple,
+        snake: snake[snake.length - i].snake,
+        head: false,
+      }
     }
   } else {
     currentSnake[0] = {
