@@ -30,6 +30,7 @@ export function useSnake() {
         }
       }
     }
+    // console.log(currentSnake)
     setSnake(currentSnake)
   }, [])
 
