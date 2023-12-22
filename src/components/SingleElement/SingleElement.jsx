@@ -8,6 +8,9 @@ export function SingleElement({ element }) {
   if (element.apple) {
     styleOfSquare = `${style.redSquare}`
   }
+  if (element.head) {
+    styleOfSquare = `${style.redSquare}`
+  }
   return (
     <div className={`${style.container}`}>
       <div className={styleOfSquare} />

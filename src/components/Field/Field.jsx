@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Rows } from '../Rows/Rows'
 import { goDown } from '../constrains/goDown'
 import { goLeft } from '../constrains/goLeft'
@@ -9,34 +9,56 @@ import {
 } from '../constrains/keyCodes'
 import { useField } from '../customHooks/useField'
 import { useSnake } from '../customHooks/useSnake'
+// import { getFeed } from '../constrains/getFeed'
 // import { getApple } from '../constrains/getApple'
 
 export function Field() {
   const { snake, setSnake } = useSnake()
-  const [colapse, setColapse] = useState(false)
+  // const [colapse, setColapse] = useState(false)
   // const [apple, setApple] = useState({})
   const { field } = useField({
-    snake, colapse, setColapse,
+    snake,
   })
+  const [seconds, setSeconds] = useState(0)
+  const [direction, setDirection] = useState('')
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSeconds(seconds + 1)
+      if (direction !== '' || direction !== 'pause') {
+        switch (direction) {
+          case 'left': goLeft({ snake, setSnake })
+            break
+          case 'right': goRight({ snake, setSnake })
+            break
+          case 'up': goUp({ snake, setSnake })
+            break
+          case 'down': goDown({ snake, setSnake })
+            break
+          default:
+            break
+        }
+      }
+    }, 350)
+    return () => clearInterval(timer)
+  }, [seconds, direction])
 
   const keyPress = (e) => {
-    if (!colapse) {
-      if (e.keyCode === spaceButton) {
-        console.log('Pause')
-      }
-      if (e.keyCode === arrowLeft) {
-        goLeft({ snake, setSnake, setColapse })
-        // getApple({ snake })
-      }
-      if (e.keyCode === arrowRight) {
-        goRight({ snake, setSnake, setColapse })
-      }
-      if (e.keyCode === arrowDown) {
-        goDown({ snake, setSnake, setColapse })
-      }
-      if (e.keyCode === arrowUp) {
-        goUp({ snake, setSnake, setColapse })
-      }
+    if (e.keyCode === spaceButton) {
+      // getFeed({ snake, setSnake })
+      setDirection('pause')
+    }
+    if (e.keyCode === arrowLeft) {
+      setDirection('left')
+    }
+    if (e.keyCode === arrowRight) {
+      setDirection('right')
+    }
+    if (e.keyCode === arrowDown) {
+      setDirection('down')
+    }
+    if (e.keyCode === arrowUp) {
+      setDirection('up')
     }
   }
 

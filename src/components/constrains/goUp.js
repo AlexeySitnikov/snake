@@ -1,31 +1,83 @@
-export function goUp({ snake, setSnake, setColapse }) {
-  const currentSnake = [snake.length]
+export function goUp({ snake, setSnake }) {
+  const vertical = snake.every((e) => snake[0].X === e.X)
+  const reversedArray = [...snake].reverse()
+  const orderOfTheHeadAtInitialArray = snake.findIndex((e) => e.head)
+  const orderOfTheHeadAtReversedArray = reversedArray.findIndex((e) => e.head)
 
-  if (snake[0].Y > snake[snake.length - 1].Y) {
-    currentSnake[0] = {
-      X: snake[snake.length - 1].X,
-      Y: snake[snake.length - 1].Y - 1,
-      apple: snake[snake.length - 1].apple,
-      snake: snake[snake.length - 1].snake,
+  const currentArray = [snake.length]
+
+  if (vertical) {
+    if ((snake[0].Y < reversedArray[0].Y)) {
+      currentArray[0] = {
+        X: snake[0].X,
+        Y: snake[0].Y - 1,
+        apple: snake[0].apple,
+        snake: snake[0].snake,
+        head: true,
+      }
+      for (let i = 1; i < snake.length; i += 1) {
+        currentArray[i] = {
+          X: snake[i - 1].X,
+          Y: snake[i - 1].Y,
+          apple: snake[i - 1].apple,
+          snake: snake[i - 1].snake,
+          head: false,
+        }
+      }
+    } else {
+      currentArray[0] = {
+        X: reversedArray[0].X,
+        Y: reversedArray[0].Y - 1,
+        apple: reversedArray[0].apple,
+        snake: reversedArray[0].snake,
+        head: true,
+      }
+      for (let i = 1; i < reversedArray.length; i += 1) {
+        currentArray[i] = {
+          X: reversedArray[i - 1].X,
+          Y: reversedArray[i - 1].Y,
+          apple: reversedArray[i - 1].apple,
+          snake: reversedArray[i - 1].snake,
+          head: false,
+        }
+      }
     }
-    for (let i = 1; i < snake.length; i += 1) {
-      currentSnake[i] = snake[snake.length - i]
-    }
-  } else {
-    currentSnake[0] = {
-      X: snake[0].X,
-      Y: snake[0].Y - 1,
-      apple: snake[0].apple,
-      snake: snake[0].snake,
-    }
-    for (let i = 1; i < snake.length; i += 1) {
-      currentSnake[i] = snake[i - 1]
+  } else if (!vertical) {
+    if (!orderOfTheHeadAtInitialArray) {
+      currentArray[0] = {
+        X: snake[0].X,
+        Y: snake[0].Y - 1,
+        apple: snake[0].apple,
+        snake: snake[0].snake,
+        head: true,
+      }
+      for (let i = 1; i < snake.length; i += 1) {
+        currentArray[i] = {
+          X: snake[i - 1].X,
+          Y: snake[i - 1].Y,
+          apple: snake[i - 1].apple,
+          snake: snake[i - 1].snake,
+          head: false,
+        }
+      }
+    } else if (!orderOfTheHeadAtReversedArray) {
+      currentArray[0] = {
+        X: reversedArray[0].X,
+        Y: reversedArray[0].Y - 1,
+        apple: reversedArray[0].apple,
+        snake: reversedArray[0].snake,
+        head: true,
+      }
+      for (let i = 1; i < reversedArray.length; i += 1) {
+        currentArray[i] = {
+          X: reversedArray[i - 1].X,
+          Y: reversedArray[i - 1].Y,
+          apple: reversedArray[i - 1].apple,
+          snake: reversedArray[i - 1].snake,
+          head: false,
+        }
+      }
     }
   }
-
-  if (currentSnake[0].Y < 0) {
-    setColapse(true)
-  } else {
-    setSnake(currentSnake)
-  }
+  setSnake(currentArray)
 }

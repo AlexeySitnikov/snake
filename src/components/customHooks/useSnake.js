@@ -6,7 +6,7 @@ export function useSnake() {
 
   useEffect(() => {
     const { initialPosition } = getInitialPosition()
-    const initialLength = 5
+    const initialLength = 6
     const currentSnake = [initialLength]
 
     if (initialPosition.vertical) {

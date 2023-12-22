@@ -11,6 +11,7 @@ export function useField({ snake, colapse }) {
       currentField[i][j] = {
         apple: false,
         snake: false,
+        head: false,
       }
     }
   }
@@ -23,6 +24,7 @@ export function useField({ snake, colapse }) {
         currentField[Y][X] = {
           apple: snake[i].apple,
           snake: snake[i].snake,
+          head: snake[i].head,
         }
       }
     }
